@@ -70,6 +70,33 @@ sudo swapon /swapfile /swapfile2   # list every swap file you created
 cat /proc/swaps                    # verify
 ```
 
+## Auto-activate at Terminal start
+
+To skip the manual step, add this block to `~/.bashrc`. It runs when a shell starts (for example, when you open the Terminal app), checks each file, and activates only the ones not yet active:
+
+```bash
+cat >> ~/.bashrc <<'EOF'
+
+# penguin-swap: activate swap files at shell start
+for _f in /swapfile /swapfile2; do
+  if [ -f "$_f" ] && ! grep -q "^$_f " /proc/swaps; then sudo -n /usr/sbin/swapon "$_f" 2>/dev/null; fi
+done
+unset _f
+EOF
+```
+
+Adjust the file list to the swap files you created. This relies on passwordless `sudo`, which is the default for the penguin user. Verified 2026-11-19 (ChromeOS Flex, Debian 13): after a container restart, opening the Terminal brought all 4 GiB of swap up with no command typed.
+
+## Disable auto-activation
+
+Delete the block you added to `~/.bashrc`. From the next shell on, nothing is activated automatically. To turn swap off immediately as well:
+
+```bash
+sudo swapoff /swapfile /swapfile2
+```
+
+Verified the same day: with the block removed and the container restarted, `/proc/swaps` stayed empty.
+
 ## Remove
 
 To turn swap off and reclaim the disk space:

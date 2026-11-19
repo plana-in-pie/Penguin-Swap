@@ -70,6 +70,33 @@ sudo swapon /swapfile /swapfile2   # 作ったスワップファイルを全部�
 cat /proc/swaps                    # 確認
 ```
 
+## 自動で有効化する
+
+手動の手順を省くには、`~/.bashrc` に以下のブロックを足す。シェルの起動時（ターミナルアプリを開いた時など）に、各ファイルを確認して、まだ有効でないものだけを有効化する。
+
+```bash
+cat >> ~/.bashrc <<'EOF'
+
+# penguin-swap: activate swap files at shell start
+for _f in /swapfile /swapfile2; do
+  if [ -f "$_f" ] && ! grep -q "^$_f " /proc/swaps; then sudo -n /usr/sbin/swapon "$_f" 2>/dev/null; fi
+done
+unset _f
+EOF
+```
+
+ファイルの一覧は、自分が作ったスワップファイルに合わせること。前提は、penguin の標準であるパスワードなし sudo。2026-11-19 に実測（ChromeOS Flex、Debian 13）：コンテナ再起動後にターミナルを開くだけで、4GB 全量がコマンドなしで有効になった。
+
+## 自動で有効化をやめる
+
+`~/.bashrc` に足したブロックを削除する。次のシェルから、自動では有効化されなくなる。すぐにスワップ自体も止めるなら：
+
+```bash
+sudo swapoff /swapfile /swapfile2
+```
+
+同日に実測：ブロックを外して再起動した後は、`/proc/swaps` は空のままだった。
+
 ## 解除する
 
 スワップを止めて、ディスク容量を取り戻すには：
