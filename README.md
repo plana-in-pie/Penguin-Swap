@@ -61,12 +61,29 @@ sudo mkswap /swapfile2
 sudo swapon /swapfile2
 ```
 
+## Every boot: activate
+
+**Swap does not survive a container restart.** The files (and their signatures) persist, so after each boot you only need to activate them again — no `mkswap`, no recreating:
+
+```bash
+sudo swapon /swapfile /swapfile2   # list every swap file you created
+cat /proc/swaps                    # verify
+```
+
+## Remove
+
+To turn swap off and reclaim the disk space:
+
+```bash
+sudo swapoff /swapfile /swapfile2
+sudo rm /swapfile /swapfile2
+free -h   # Swap is back to 0
+```
+
 ## Operational notes
 
-- **Swap does not survive a container restart.** The files persist, so after each boot just run `sudo swapon /swapfile` (for each file you created). `mkswap` is only needed when creating a file.
 - Swap is shared by the whole container; it is not per-application.
 - Swap adds *capacity*, not *speed*: data that is actively used still needs to live in RAM. On an SSD, however, page-in latency is small, so swap absorbs transient peaks very well — nothing like the thrashing death spiral of the HDD era.
-- To stop: `sudo swapoff /swapfile`, then delete the file to reclaim the disk space.
 
 ## Measured results (2026-11-19)
 
