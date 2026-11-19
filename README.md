@@ -2,6 +2,8 @@
 
 [日本語版 (Japanese)](README.ja.md)
 
+Questions and feedback: [Bluesky @plana-in-pie.bsky.social](https://bsky.app/profile/plana-in-pie.bsky.social)
+
 ## Background: penguin has no swap
 
 The ChromeOS Linux container ("penguin") ships with **no swap at all**: `/proc/swaps` is empty and `free` reports `Swap: 0`. ChromeOS exposes no setting to add any. When memory runs out, processes simply die.

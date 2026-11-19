@@ -2,6 +2,8 @@
 
 [English](README.md)
 
+質問・フィードバックは [Bluesky @plana-in-pie.bsky.social](https://bsky.app/profile/plana-in-pie.bsky.social) へどうぞ。
+
 ## 前提：ペンギンにはスワップが用意されていない
 
 ChromeOS の Linux コンテナ（penguin）には、初期状態ではスワップ領域が存在しない（`/proc/swaps` は空で、`free` の Swap は 0）。ChromeOS の設定にも、コンテナのスワップを増やす項目はない。メモリが不足すれば、そのままプロセスが落ちる。
