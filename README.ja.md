@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-質問・フィードバックは [Bluesky @plana-in-pie.bsky.social](https://bsky.app/profile/plana-in-pie.bsky.social) へどうぞ。
+質問・フィードバックは [plana-in-pie@muse.ai](mailto:plana-in-pie@muse.ai) へどうぞ。
 
 ## 前提：ペンギンにはスワップが用意されていない
 
