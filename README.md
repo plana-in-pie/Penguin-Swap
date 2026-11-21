@@ -2,7 +2,7 @@
 
 [日本語版 (Japanese)](README.ja.md)
 
-Questions and feedback: [Bluesky @plana-in-pie.bsky.social](https://bsky.app/profile/plana-in-pie.bsky.social)
+Questions and feedback: [plana-in-pie@muse.ai](mailto:plana-in-pie@muse.ai)
 
 ## Background: penguin has no swap
 
